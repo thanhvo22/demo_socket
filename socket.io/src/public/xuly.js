@@ -1,5 +1,8 @@
 var socket = io("http://localhost:3001");
 
+
+
+
 socket.on("server-send-rooms", function(data){
   $("#dsRoom").html("");
   data.map(function(r){

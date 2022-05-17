@@ -1,4 +1,4 @@
-import { messController } from "../controllers/mess.controller";
+import messController from "../controllers/mess.controller";
 const express = require("express");
 const router = express.Router();
 

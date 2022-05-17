@@ -2,10 +2,14 @@ import * as express from "express";
 import {Request, Response} from "express";
 import messageModel from "../models/message.model";
 import roomModel from "../models/room.model";
-export const messController = {
+
+var app = express();
+var server = require("http").Server(app);
+var io = require("socket.io")(server);
+const messController = {
     getMess: async (req:Request,res:Response) => {
         const id = req.signedCookies.cookie_id;
-        const message = await messageModel.findOne(id);
+        const message = await messageModel.find();
         res.json(message);
     },
     postCreateMessage: async (req:Request,res:Response) => {
@@ -17,7 +21,8 @@ export const messController = {
             user_id: id,
             room_id
         })
-        res.json(newMess);
+        io.emit('message', text);
+        // res.json(newMess);
     },
     postSendMessages: async (req:Request, res:Response) => {
         // const { room_id, user_id, text } = req.body;
@@ -42,3 +47,4 @@ export const messController = {
         
       }
 }
+export default messController;

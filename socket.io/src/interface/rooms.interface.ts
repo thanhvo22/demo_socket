@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
 export interface IRoom extends Document{
-    roomName: string;
-    user_id: string;
+    roomName?: string;
+    user_id?: [string];
 }

@@ -9,7 +9,7 @@ const messageSchema: Schema = new Schema({
   },
   text: {
     type: String,
-    required: true,
+    
   },
   room_id: {
     type: Schema.Types.ObjectId,

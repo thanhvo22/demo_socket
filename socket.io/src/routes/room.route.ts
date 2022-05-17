@@ -1,4 +1,4 @@
-import { roomController } from "../controllers/room.controller";
+import roomController from "../controllers/room.controller";
 const express = require("express");
 const router = express.Router();
 
