@@ -13,5 +13,6 @@ const messageSchema: Schema = new Schema({
   },
   sender: {type: String
   },
+  createdAt: {type: Date, default: Date.now()},
 });
 export default model<IMessage>("Message", messageSchema);

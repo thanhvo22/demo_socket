@@ -3,6 +3,7 @@ exports.__esModule = true;
 var dotenv = require("dotenv");
 dotenv.config();
 var express = require("express");
+var app = express();
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
@@ -10,10 +11,10 @@ var db = require("./config/db.config");
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
 var cors = require("cors");
-var app = express();
 var auth_route_1 = require("./routes/auth.route");
 var mess_route_1 = require("./routes/mess.route");
-var room_route_1 = require("./routes/room.route");
+var user_route_1 = require("./routes/user.route");
+var conversation_route_1 = require("./routes/conversation.route");
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser(process.env.SESSION_SECRET));
@@ -45,5 +46,6 @@ server.listen(3001, function () {
 //   console.log('a user is connected')
 // })
 app.use("/auth", auth_route_1["default"]);
-app.use("/rooms", room_route_1["default"]);
 app.use("/messages", mess_route_1["default"]);
+app.use('/users', user_route_1["default"]);
+app.use("/conversations", conversation_route_1["default"]);

@@ -55,6 +55,7 @@ exports.authController = {
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
+                    console.log("login page");
                     _a = req.body, email = _a.email, pass = _a.pass;
                     if (!email || !pass)
                         return [2 /*return*/, res.status(400).json({

@@ -2,16 +2,15 @@
 exports.__esModule = true;
 var mongoose_1 = require("mongoose");
 var messageSchema = new mongoose_1.Schema({
-    user_id: {
+    conversationId: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: "Account"
+        ref: "Conversation"
     },
     text: {
         type: String
     },
-    room_id: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        ref: "Room"
-    }
+    sender: { type: String
+    },
+    createdAt: { type: Date, "default": Date.now() }
 });
 exports["default"] = (0, mongoose_1.model)("Message", messageSchema);

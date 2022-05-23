@@ -12,7 +12,6 @@ const cors = require("cors");
 
 import authRouter from "./routes/auth.route";
 import messRouter from "./routes/mess.route";
-import roomRouter from "./routes/room.route";
 import userRouter from "./routes/user.route";
 import convRouter from "./routes/conversation.route";
 
@@ -51,7 +50,6 @@ server.listen(3001, () => {
 //   console.log('a user is connected')
 // })
 app.use("/auth", authRouter);
-app.use("/rooms", roomRouter);
 app.use("/messages", messRouter);
 app.use('/users', userRouter);
 app.use("/conversations", convRouter);

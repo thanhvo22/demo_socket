@@ -36,75 +36,67 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var express = require("express");
-var message_model_1 = require("../models/message.model");
-var app = express();
-var server = require("http").Server(app);
-var io = require("socket.io")(server);
-var messController = {
-    postMess: function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-        var newMessage, savedMessage, err_1;
+var account_model_1 = require("../models/account.model");
+var userController = {
+    getAllUsers: function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+        var users;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    newMessage = new message_model_1["default"](req.body);
-                    _a.label = 1;
+                case 0: return [4 /*yield*/, account_model_1["default"].find()];
                 case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, newMessage.save()];
-                case 2:
-                    savedMessage = _a.sent();
-                    res.status(200).json(savedMessage);
-                    return [3 /*break*/, 4];
-                case 3:
-                    err_1 = _a.sent();
-                    res.status(500).json(err_1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
-            }
-        });
-    }); },
-    getConvId: function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-        var messages, err_2;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, message_model_1["default"].find({
-                            conversationId: req.params.conversationId
-                        })];
-                case 1:
-                    messages = _a.sent();
-                    res.status(200).json(messages);
-                    return [3 /*break*/, 3];
-                case 2:
-                    err_2 = _a.sent();
-                    res.status(500).json(err_2);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    }); },
-    postCreateMessage: function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-        var text, id, room_id, newMess;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    text = req.body.text;
-                    id = req.signedCookies.cookie_id;
-                    room_id = req.signedCookies.room_id;
-                    return [4 /*yield*/, message_model_1["default"].create({
-                            text: text,
-                            user_id: id,
-                            room_id: room_id
-                        })];
-                case 1:
-                    newMess = _a.sent();
-                    // io.emit('message', text);
-                    res.json(newMess);
+                    users = _a.sent();
+                    res.json({
+                        message: "all users",
+                        users: users
+                    });
                     return [2 /*return*/];
+            }
+        });
+    }); },
+    getUser: function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+        var user;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, account_model_1["default"].findById(req.params.id)];
+                case 1:
+                    user = _a.sent();
+                    res.json(user);
+                    return [2 /*return*/];
+            }
+        });
+    }); },
+    getUserInConv: function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+        var userId, username, user, _a, err_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    console.log("test ");
+                    userId = req.query.userId;
+                    console.log("userId: ".concat(userId));
+                    username = req.query.username;
+                    _b.label = 1;
+                case 1:
+                    _b.trys.push([1, 6, , 7]);
+                    if (!userId) return [3 /*break*/, 3];
+                    return [4 /*yield*/, account_model_1["default"].findById({ _id: userId })];
+                case 2:
+                    _a = _b.sent();
+                    return [3 /*break*/, 5];
+                case 3: return [4 /*yield*/, account_model_1["default"].findOne({ email: username })];
+                case 4:
+                    _a = _b.sent();
+                    _b.label = 5;
+                case 5:
+                    user = _a;
+                    res.status(200).json(user);
+                    return [3 /*break*/, 7];
+                case 6:
+                    err_1 = _b.sent();
+                    res.status(500).json(err_1);
+                    return [3 /*break*/, 7];
+                case 7: return [2 /*return*/];
             }
         });
     }); }
 };
-exports["default"] = messController;
+exports["default"] = userController;
